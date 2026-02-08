@@ -9,7 +9,7 @@ set -e
 set -o nounse
 ###################################
 
-RESPONSE=$(curl -ks "https://localhost/health.html" || true)
+RESPONSE=$(curl -ks "https://localhost/healthcheck.html" || true)
 
 if [response == "OK"]; then
  echo "happy healthy and alive"
