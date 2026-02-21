@@ -6,7 +6,8 @@
 # Version: 0.0.1
 set -o errexit
 set -e
-set -o nounse
+set -o nounset
+set -o pipefail
 ####################################
 
 BACKUP_DIR="/var/backups/devops-site"
