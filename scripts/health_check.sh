@@ -6,15 +6,15 @@
 # Version: 0.0.1
 set -o errexit
 set -e
-set -o nounse
+set -o nounset
 ###################################
-
-RESPONSE=$(curl -ks "https://localhost/healthcheck.html" || true)
-
-if [response == "OK"]; then
- echo "happy healthy and alive"
- exit 0
+  
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://localhost || true)
+  
+if [ $STATUS == "OK" ]; then
+echo "happy healthy and alive"
+exit 0
 else
- echo "failed"
- exit 1
+echo "getting error code $STATUS"
+exit 1
 fi
