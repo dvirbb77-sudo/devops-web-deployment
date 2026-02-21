@@ -6,7 +6,8 @@
 # Version: 0.0.1
 set -o errexit
 set -e
-set -o nounse
+set -o nounset
+set -o pipefail
 ###################################
 
 SITE_DIR="/var/www/devops-site"
@@ -26,7 +27,7 @@ tar -czf "$BACKUP_DIR/$BACKUP_FILE" -C "$SITE_DIR"
 BACKUPS=$(ls -1 "$BACKUP_DIR"/devops-site-*.tar.gz 2>/dev/null || true)
 COUNT=$(echo "$BACKUPS" | wc -l | tr -d ' ')
 
-if [ "$COUNT" -gt 5 ]; then
+if (( COUNT -gt 5 )); then
     REMOVE_COUNT=$((COUNT - 5))
     echo "$BACKUPS" | head -n "$REMOVE_COUNT" | while read -r old_backup; do
         rm -f "$old_backup"
